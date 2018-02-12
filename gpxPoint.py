@@ -14,7 +14,7 @@ class gpxPoint:
         self.dist=float(dist)
 
     def __str__(self):
-        return "latitude: {}, longitude: {}, time: {}, elevation: {}, heat rate: {}".format(self.lat,self.lon,self.time,self.ele,self.hr)
+        return "latitude: {}, longitude: {}, distance: {}, time: {}, elevation: {}, heat rate: {}".format(self.lat,self.lon,self.dist,self.time,self.ele,self.hr)
 
     def getDist(self,other):
         """Approxomates the distance between this gpx point and another using Vincentry's formula"""

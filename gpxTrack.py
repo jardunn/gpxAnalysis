@@ -41,8 +41,24 @@ class gpxTrack:
     def __str__(self):
         return "Length: "+str(self.dist)+"m"
 
+    def split(self,dist):
+        counter =0
+        laps=[]
+        lap=[]
+        for pt in self.points:
+            lap.append(pt)
+            counter += pt.dist
+            if counter >= dist:
+                counter=0
+                laps.append(lap)
+                lap=[]
+                
+        laps.append(lap)
+        return laps
+
 if __name__ == "__main__":
     track = gpxTrack("test.gpx")
     print(track)
     pts = track.points
-    print(pts[0].getDist(pts[1]))
+    laps = track.split(1000)
+    print(len(laps))
