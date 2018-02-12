@@ -9,6 +9,7 @@ class gpxTrack:
     def __init__(self,fname):
         """Initialise gpxTrack from a gpx file"""
         self.points=[]
+        self.dist=0
         f = open(fname,'r')
         text = f.readlines()
         lat=-1
@@ -30,13 +31,18 @@ class gpxTrack:
             if "/trkpt" in line:
                 pt=gpxPoint(lat,lon,time,ele,hr)
                 self.points.append(pt)
+        self.points[0].dist=0
+        for i in range(1,len(self.points)):
+            dist = self.points[i-1].getDist(self.points[i])
+            self.points[i].dist=dist
+            self.dist+=dist
+            
 
     def __str__(self):
-        return "Length: "+str(len(self.points))
-                
+        return "Length: "+str(self.dist)+"m"
+
 if __name__ == "__main__":
     track = gpxTrack("test.gpx")
     print(track)
     pts = track.points
-    for i in range(10):
-        print(pts[i])
+    print(pts[0].getDist(pts[1]))
