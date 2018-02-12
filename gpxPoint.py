@@ -11,7 +11,7 @@ class gpxPoint:
         self.ele = float(elevation)
         self.hr=int(hr)
         self.time=time
-        self.duration=0
+        self.duration=0.0
         self.dist=float(dist)
 
     def __str__(self):

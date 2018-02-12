@@ -76,6 +76,27 @@ class gpxTrack:
         laps.append(lap)
         return laps
 
+    def splitClimbs(self):
+        climbs=[]
+        climb=[self.points[0]]
+        dEle = self.points[1].ele-self.points[0].ele
+        if dEle>=0:
+            up=True
+        else:
+            up=False
+        for i in range(1,len(self.points)):
+            dEle=self.points[i].ele-self.points[i-1].ele
+            if (dEle>=0 and up) or (dEle<0 and not up):
+                climb.append(self.points[i])
+            else:
+                up=not up
+                climbs.append(climb)
+                climb=[self.points[i]]
+                
+        return climbs
+            
+            
+
 if __name__ == "__main__":
     track = gpxTrack("test.gpx")
     print(track)
@@ -83,3 +104,5 @@ if __name__ == "__main__":
     laps = track.split(1000)
     print(splitTime(pts[0].time))
     print(len(laps))
+    hill = track.splitClimbs()
+    print(len(hill))
